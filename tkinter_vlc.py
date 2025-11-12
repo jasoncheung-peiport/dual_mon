@@ -2,9 +2,14 @@ import tkinter as tk
 import vlc
 from screeninfo import get_monitors
 
-rtsp_url = "rtsp://admin:pw123456@192.168.10.231:554/Streaming/Channels/101"
+rtsp_url = [
+    "rtsp://admin:pw123456@192.168.10.231:554/Streaming/Channels/101",  # daylight
+    "rtsp://admin:pw123456@192.168.10.231:554/Streaming/Channels/201"   # thermal
+]
 
-screen = get_monitors()[0]
+monitor_index = int(input("Mon Index (1 or 2): "))
+
+screen = get_monitors()[monitor_index - 1]
 screen_width = screen.width
 screen_height = screen.height
 screen_x = screen.x
@@ -21,15 +26,18 @@ class MyFrame(tk.Frame):
     def play(self):
         instance = vlc.Instance('--no-xlib --quiet')
         self.player = instance.media_player_new()
-        media = instance.media_new(rtsp_url)
+        media = instance.media_new(rtsp_url[monitor_index - 1])
         self.player.set_media(media)
         xid = self.frame.winfo_id()
         self.player.set_xwindow(xid)
         self.player.play()
+        while True:
+            pass
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.title("Video Frame Tkinter")
+    root.title(f"Video Frame Tkinter {monitor_index}")
+    root.geometry(f"{abs(screen_width)}x{abs(screen_height)}+{screen.x}+{screen.y}")
     root.overrideredirect(True)
     app = MyFrame(root)
     app.after(1000, app.play())
