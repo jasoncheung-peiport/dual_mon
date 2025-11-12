@@ -17,3 +17,13 @@ Only work for 1920x1080 or lower resolution camera. Higher resolution will cause
     opencv-python
 
     screeninfo
+
+# Git Commands
+
+## discard all changes
+
+    git reset --hard
+
+## update from origin
+
+    git pull origin
