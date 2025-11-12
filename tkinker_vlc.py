@@ -1,19 +1,22 @@
 import tkinter as tk
 import vlc
+from screeninfo import get_monitors
 
 rtsp_url = "rtsp://admin:pw123456@192.168.10.231:554/Streaming/Channels/101"
 
-class myframe(tk.Frame):
-    def __init__(self, root, width=500, height=400, bd=5):
-        super(myframe, self).__init__(root)
+screen = get_monitors()[0]
+screen_width = screen.width
+screen_height = screen.height
+screen_x = screen.x
+screen_y = screen.y
+
+class MyFrame(tk.Frame):
+    def __init__(self, root):
+        super(MyFrame, self).__init__(root)
         self.grid()
-        self.frame = tk.Frame(self, width=450, height=350, bd=5)
+        self.frame = tk.Frame(self, width=screen_width, height=screen_height)
         self.frame.configure(bg="black")
-        self.frame.grid(row=0, column=0, columnspan=2, padx=8)
-        self.play_button = tk.Button(self, text = 'Play', command = self.play)
-        self.play_button.grid(row=1, column=0, columnspan=1, padx=8)
-        self.stop_button = tk.Button(self, text = 'Pause', command = self.pause)
-        self.stop_button.grid(row=1, column=1, columnspan=1, padx=8)
+        self.frame.pack()
 
     def play(self):
         instance = vlc.Instance('--no-xlib --quiet')
@@ -24,14 +27,10 @@ class myframe(tk.Frame):
         self.player.set_xwindow(xid)
         self.player.play()
 
-    def pause(self):
-        try:
-            self.player.pause()
-        except:
-            pass
-
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Video Frame Tkinter")
-    app = myframe(root)
+    root.overrideredirect(True)
+    app = MyFrame(root)
+    app.after(1000, app.play())
     root.mainloop()
