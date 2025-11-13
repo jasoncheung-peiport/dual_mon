@@ -1,17 +1,22 @@
 import subprocess
+import platform
 
 class NetworkManager:
     def is_device_online(self, ip):
-        command = ['ping', "-n", "1", ip]  # Window
+        if platform.system() == "Windows":
+            command = ['ping', '-n', '1', ip]  # Windows
+        else:
+            command = ['ping', '-c', '1', ip]  # Linux/Mac
+
         try:
             subprocess.run(command)
-            print("device online")# Resume playing if the player was paused
+            print("Device online")  # Print status message
             return True
         except subprocess.CalledProcessError:
-            print("device offline")
-            return False 
+            print("Device offline")  # Print status message
+            return False
 
 network_manager = NetworkManager()
 
-if __name__=="__main__":
-    network_manager.check_device_online("192.168.10.231")
+if __name__ == "__main__":
+    network_manager.is_device_online("192.168.10.231")

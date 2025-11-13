@@ -2,7 +2,7 @@
 
     source dual_mon/bin/activate
 
-    python main.py 0 & python main.py 1
+    python main.py
 
 # Python Version
 
@@ -13,6 +13,8 @@
     opencv-python
 
     screeninfo
+
+    python-vlc
 
 # Git Commands
 
