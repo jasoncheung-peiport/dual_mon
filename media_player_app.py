@@ -23,8 +23,10 @@ class MediaPlayerApp:
         self.instance = vlc.Instance(f"--network-caching={NETWORK_CACHE}")
         self.player = self.instance.media_player_new()
         self.video_frame = tk.Frame(self.master, bg="black", width=self.monitor.width, height=self.monitor.height)
-        if self.master.winfo_exists():
-            self.player.set_hwnd(self.video_frame.winfo_id())
+        if network_manager.is_window_os():
+           self.player.set_hwnd(self.video_frame.winfo_id())
+        else:
+            self.player.set_xwindow(self.video_frame.winfo_id())
         self.video_frame.pack()
         self.media = self.instance.media_new(self.camera.rtsp_url)
         self.player.set_media(self.media)

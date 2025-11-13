@@ -2,8 +2,14 @@ import subprocess
 import platform
 
 class NetworkManager:
-    def is_device_online(self, ip):
+    def is_window_os(self):
         if platform.system() == "Windows":
+            return True
+        return False
+
+    def is_device_online(self, ip):
+        is_window = self.is_window_os()
+        if is_window:
             command = ['ping', '-n', '1', ip]  # Windows
         else:
             command = ['ping', '-c', '1', ip]  # Linux/Mac
