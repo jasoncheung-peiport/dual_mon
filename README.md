@@ -2,11 +2,11 @@
 
 Move to the program directory
 
-    cd /Desktop/dual_mon/
+    cd peiport/dual_mon/
 
 Activate Venv
 
-    source dual_mon/bin/activate
+    conda activate dual
 
 Run Script
 
@@ -28,7 +28,7 @@ Run Script
 
 # Convert Python to exe (Pyinstaller)
 
-        pyinstaller --onefile --windowed --icon=peiport_logo.ico --name "peiport" main.py
+    pyinstaller --onefile --windowed --icon=peiport_logo.ico --name "peiport" main.py
 
 # Pi Setup
 
@@ -83,6 +83,10 @@ set autohide from 0 to 1
     autohide=1
 
 # Git Commands
+
+## Clone project
+
+    git clone https://github.com/jasoncheung-peiport/dual_mon.git
 
 ## Discard all changes
 
