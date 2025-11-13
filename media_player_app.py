@@ -1,4 +1,4 @@
-import vlc
+from lib import vlc
 from screeninfo import Monitor
 
 import tkinter as tk
