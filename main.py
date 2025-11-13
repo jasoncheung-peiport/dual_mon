@@ -1,45 +1,19 @@
 import tkinter as tk
-from screeninfo import get_monitors
-import vlc
+from camera.camera_data import camera_list
+from monitors import monitors
+from media_player_app import MediaPlayerApp
 
-rtsp_url = [
-    "rtsp://admin:pw123456@192.168.10.231:554/Streaming/Channels/101",  # daylight
-    "rtsp://admin:pw123456@192.168.10.231:554/Streaming/Channels/201"   # thermal
-]
+NETWORK_CACHE = 50
+root_list = []
 
-def play(frame, index):
-    instance = vlc.Instance('--no-xlib --quiet')
-    player = instance.media_player_new()
-    media = instance.media_new(rtsp_url[index])
-    player.set_media(media)
-    xid = frame.winfo_id()
-    player.set_xwindow(xid)
-    player.play()
-    while True:
-        pass
+if __name__=="__main__":
 
-tk_app = []
-monitors = get_monitors()
-for index in range(len(monitors)):
-    screen = monitors[index]
-    screen_width = screen.width
-    screen_height = screen.height
-    screen_x = screen.x
-    screen_y = screen.y
+    for index in range(len(monitors.monitors)):
+        root = tk.Tk()
+        root.geometry(f"{abs(monitors.monitors[index].width)}x{abs(monitors.monitors[index].height)}+{monitors.monitors[index].x}+{monitors.monitors[index].y}")
+        root.overrideredirect(True)
+        app = MediaPlayerApp(root, monitor=monitors.monitors[index], camera=camera_list[index])
+        root_list.append(root)
 
-
-    root = tk.Tk()
-    root.title(f"Window {index + 1}")
-    monitor = monitors[index]
-    root.geometry(f"{abs(monitor.width)}x{abs(monitor.height)}+{monitor.x}+{monitor.y}")
-    root.overrideredirect(True)
-    frame = tk.Frame(width=screen_width, height=screen_height)
-    frame.configure(bg="black")
-    frame.pack()
-    frame.after(5000, play(frame, index))
-    # label = tk.Label(root, text=f"Monitor {index + 1}", font=("Helvetica", 30))
-    # label.place(relx=0.5, rely=0.5, anchor="center")
-    tk_app.append(root)
-
-for app in tk_app:
-    app.mainloop()
+    for root in root_list:
+        root.mainloop()
