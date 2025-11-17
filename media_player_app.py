@@ -3,7 +3,7 @@ from screeninfo import Monitor
 
 import tkinter as tk
 
-from camera.camera_struc import Camera
+from data_struct.camera_struc import Camera
 from network_manger import network_manager
 
 NETWORK_CACHE = 100

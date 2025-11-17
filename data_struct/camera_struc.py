@@ -1,6 +1,5 @@
 class Camera:
-    def __init__(self, type, ip, user, password, port, rtsp_path):
-        self.type = type
+    def __init__(self, ip, user, password, port, rtsp_path):
         self.ip = ip
         self.user = user
         self.password = password

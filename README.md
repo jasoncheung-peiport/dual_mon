@@ -32,6 +32,30 @@ Run Script
 
 # Pi Setup
 
+## Convert exe to xxx.desktop with icon
+
+1.  create a xxx.desktop file
+
+        [Desktop Entry]
+
+        Name=Peiport
+
+        Exec=/home/admin/peiport/dual_mon/dist/peiport
+
+        Icon=/home/admin/peiport/dual_mon/dist/peiport_logo.svg
+
+        Type=Application
+
+        Categories=Utility;
+
+2.  convert to .desktop
+
+        sudo chmod +x xxx.desktop
+
+3.  place .desktop to autostart
+
+        sudo cp ~/peiport/dual_mon/dist/peiport.desktop /etc/xdg/autostart/
+
 ## Hide the idle mouse
 
 1.  Install unclutter

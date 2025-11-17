@@ -1,8 +1,9 @@
 import tkinter as tk
-from camera.camera_data import camera_list
 from monitors import monitors
 from media_player_app import MediaPlayerApp
+from config_parser import local_config
 
+camera_list = local_config.camera_list
 roots = []
 
 if __name__=="__main__":

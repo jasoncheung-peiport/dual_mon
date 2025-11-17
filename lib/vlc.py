@@ -91,6 +91,10 @@ _internal_guard = object()
 
 def find_lib():
     dll = None
+    plugin_path = None
+    if sys.platform == "linux":
+        plugin_path = "/usr/lib/aarch64-linux-gnu/vlc/plugins" # change the path according to your os
+        os.environ.setdefault("PYTHON_VLC_MODULE_PATH", plugin_path)
     plugin_path = os.environ.get("PYTHON_VLC_MODULE_PATH", None)
     if "PYTHON_VLC_LIB_PATH" in os.environ:
         try:
